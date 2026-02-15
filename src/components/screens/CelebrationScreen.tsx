@@ -22,7 +22,7 @@ const CelebrationScreen: React.FC<CelebrationScreenProps> = ({ onContinue }) => 
   }, []);
 
   return (
-    <div className="min-h-screen bg-celebration-gradient flex flex-col items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-celebration-gradient flex flex-col items-center justify-center p-6 relative overflow-y-auto overflow-x-hidden">
       <FloatingHearts intensity="celebration" />
       {showConfetti && <Confetti />}
       
