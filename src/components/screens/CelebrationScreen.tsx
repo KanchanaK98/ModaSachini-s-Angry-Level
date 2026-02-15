@@ -3,8 +3,13 @@ import { ValentineButton } from "@/components/ui/valentine-button";
 import FloatingHearts from "@/components/FloatingHearts";
 import Confetti from "@/components/Confetti";
 
-const CelebrationScreen: React.FC = () => {
+interface CelebrationScreenProps {
+  onContinue: () => void;
+}
+
+const CelebrationScreen: React.FC<CelebrationScreenProps> = ({ onContinue }) => {
   const [showConfetti, setShowConfetti] = useState(true);
+  const [showExtra, setShowExtra] = useState(false);
 
   useEffect(() => {
     // Refresh confetti periodically
@@ -12,6 +17,7 @@ const CelebrationScreen: React.FC = () => {
       setShowConfetti(false);
       setTimeout(() => setShowConfetti(true), 100);
     }, 5000);
+    setTimeout(() => setShowExtra(true), 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -64,7 +70,7 @@ const CelebrationScreen: React.FC = () => {
           <ValentineButton
             variant="celebration"
             size="lg"
-            onClick={() => {}}
+            onClick={onContinue}
           >
             🤗 Fine, come here
           </ValentineButton>
@@ -82,6 +88,19 @@ const CelebrationScreen: React.FC = () => {
         <p className="text-muted-foreground text-sm italic">
           Anger levels: 0% | Forgiveness: 100% | Hugs owed: ∞ 🤗
         </p>
+
+        {showExtra && (
+          <div className="mt-6 animate-fade-in-up">
+            <ValentineButton
+              variant="yes"
+              size="xl"
+              onClick={onContinue}
+              className="animate-bounce-soft"
+            >
+              🧡 But wait, there's more… →
+            </ValentineButton>
+          </div>
+        )}
       </div>
     </div>
   );

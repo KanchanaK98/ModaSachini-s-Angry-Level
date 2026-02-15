@@ -4,8 +4,11 @@ import QuestionScreen from "@/components/screens/QuestionScreen";
 import ConfirmationScreen from "@/components/screens/ConfirmationScreen";
 import FallbackScreen from "@/components/screens/FallbackScreen";
 import CelebrationScreen from "@/components/screens/CelebrationScreen";
+import ValueScreen from "@/components/screens/ValueScreen";
+import PoemScreen from "@/components/screens/PoemScreen";
+import FinalScreen from "@/components/screens/FinalScreen";
 
-type Screen = "welcome" | "question" | "confirmation" | "fallback" | "celebration";
+type Screen = "welcome" | "question" | "confirmation" | "fallback" | "celebration" | "value" | "poem" | "final";
 
 const Index: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>("welcome");
@@ -32,7 +35,13 @@ const Index: React.FC = () => {
       case "fallback":
         return <FallbackScreen onContinue={() => setCurrentScreen("celebration")} />;
       case "celebration":
-        return <CelebrationScreen />;
+        return <CelebrationScreen onContinue={() => setCurrentScreen("value")} />;
+      case "value":
+        return <ValueScreen onNext={() => setCurrentScreen("poem")} />;
+      case "poem":
+        return <PoemScreen onNext={() => setCurrentScreen("final")} />;
+      case "final":
+        return <FinalScreen />;
       default:
         return <WelcomeScreen onContinue={() => setCurrentScreen("question")} />;
     }
